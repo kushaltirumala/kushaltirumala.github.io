@@ -1,0 +1,223 @@
+html,
+body {
+  height: 100%;
+  width:100%;
+  font-family: 'Raleway', sans-serif;
+  margin:0;
+  padding:0;
+  text-align: center;
+}
+
+}
+.header {
+  height:25%;
+  margin:0;
+  background-color:black;
+}
+.header h1{
+  color:white;
+  /**margin-top: 5%;*/
+  padding:10px;
+  margin:0;
+}
+
+.img-circle {
+    height: 200px;
+    border-radius: 50%;
+    margin: 10px;
+}
+.aboutme {
+ 
+  /**http://flatuicolors.com/ */
+  background-color:white;
+  height: 60%;
+  width: 100%;
+  padding:0;
+  margin:0;
+  color:black;
+}
+.aboutmecontainer {
+  text-align: left;
+  padding-left: 10%;
+  width:80%;
+  padding-top: 40px;
+}
+.aboutmecontainer p {
+  margin:0;
+  padding-top:50px;
+  font-size:18px;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 100;
+  line-height: 35px;
+}
+
+.projects {
+  margin:0;
+  padding:0;
+  background-color: white;
+  color:#16a085;
+  height:100%;
+}
+
+hr {
+  height: 10px;
+  border: 0;
+  box-shadow: 0 10px 10px -10px #8c8b8b inset;
+  color:#16a085;
+}
+
+.projects h1 {
+  padding-top: 30px;
+  font-weight: 100;
+  margin:0;
+}
+
+.projects .item {
+  display:inline-block;
+  padding:30px;
+}
+
+.projects .item img {
+  border-radius: 30px;
+}
+
+.team .item h2 a {
+  text-align: center;
+  color:#16a085;
+  text-decoration:none;
+}
+
+/**skillz*/
+
+
+.skills {
+  margin:0;
+  padding:0;
+  background-color: white;
+  color:#34495e;
+  height:80%;
+}
+
+.skills h1 {
+  padding-top: 30px;
+
+  font-weight: 100;
+  margin: 0;
+}
+.skills .content {
+  padding-top: 30px;
+}
+
+
+.links {
+  margin:0;
+  padding:0;
+  background-color: white;
+  color:#34495e;
+  margin-bottom: 50px;
+}
+.links .link {
+  padding: 30px;
+  display: inline-block;
+}
+.links .link img {
+  border-radius: 50%;
+  height:200px;
+  width:200px;
+}
+
+/**secondary animagtion*/
+/**css animation css*/
+#loading{
+background-color: #bd4932;
+height: 100%;
+width: 100%;
+position: fixed;
+z-index: 1;
+margin-top: 0px;
+top: 0px;
+}
+
+#loading-center{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding-top:25%;
+  padding-left: 48%;
+}
+
+
+@-webkit-keyframes animate {
+  0% { -webkit-transform: perspective(160px); }
+  50% { -webkit-transform: perspective(160px) rotateY(-180deg); }
+  100% { -webkit-transform: perspective(160px) rotateY(-180deg) rotateX(-180deg); }
+}
+
+@keyframes animate {
+  0% { 
+    transform: perspective(160px) rotateX(0deg) rotateY(0deg);
+    -webkit-transform: perspective(160px) rotateX(0deg) rotateY(0deg); 
+  } 50% { 
+    transform: perspective(160px) rotateX(-180deg) rotateY(0deg);
+    -webkit-transform: perspective(160px) rotateX(-180deg) rotateY(0deg) ;
+  } 100% { 
+    transform: perspective(160px) rotateX(-180deg) rotateY(-180deg);
+    -webkit-transform: perspective(160px) rotateX(-180deg) rotateY(-180deg);
+  }
+}
+.pacman > div {
+
+}
+
+
+@keyframes animatedBackground {
+  from { background-position: 0 0; }
+  to { background-position: 100% 0; }
+}
+
+#animate-area { 
+  background-image: url(clouds.png);
+  background-position: 0px 0px;
+  background-repeat: repeat-x;
+
+  animation: animatedBackground 40s linear infinite;
+}
+
+/**media query stuff = no animations*/
+@media screen and (max-width: 650px) {
+  .projects {
+    padding-top:80px;
+  }
+
+  .aboutmecontainer p {
+    padding-top: 0px;
+  }
+
+  .skills {
+    padding-top:430%;
+  }
+  .skills p {
+    padding-left: 30px;
+    padding-right:30px;
+  }
+  .links {
+    padding-top: 150px;
+  }
+
+@media screen and (max-width: 600px) {
+  .skills {
+    padding-top: 100%;
+  }
+
+  @media screen and (max-width: 480px) {
+  .skills {
+    padding-top: 470%;
+  }
+  .links {
+    padding-top:200px;
+  }
+}
+
+
+
+}

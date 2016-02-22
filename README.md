@@ -1,2 +1,1 @@
-# kushaltirumala.github.io
-my website
+My website :)

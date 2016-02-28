@@ -184,6 +184,12 @@ top: 0px;
 }
 
 /**media query stuff = no animations*/
+@media screen and (max-width:1153px) {
+  .skills {
+    padding-top: 500px;
+  }
+}
+
 @media screen and (max-width: 650px) {
   .projects {
     padding-top:80px;
@@ -204,10 +210,6 @@ top: 0px;
     padding-top: 150px;
   }
 
-@media screen and (max-width: 600px) {
-  .skills {
-    padding-top: 100%;
-  }
 
   @media screen and (max-width: 480px) {
   .skills {

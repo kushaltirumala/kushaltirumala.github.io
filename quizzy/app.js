@@ -20,15 +20,37 @@ $("#userInfoButton").click(function(){
 		var redirectURI = "https://quizlet.com/authorize?response_type=code&client_id=4msU8P4c2B&scope=write_set&state="+str;
 		//alert(redirectURI);
 		window.open(redirectURI,'auth time');
+		var currentURL = window.location.href;
+		//alert(currentURL);
+		waitForUrlToChangeTo("code=");
+		alert(window.location.href);
+
 	}
+
+
+	function waitForUrlToChangeTo(urlRegex) {
+		    var currentUrl;
+
+		    return browser.getCurrentUrl().then(function storeCurrentUrl(url) {
+		            currentUrl = url;
+		        }
+		    ).then(function waitForUrlToChangeTo() {
+		            return browser.wait(function waitForUrlToChangeTo() {
+		                return browser.getCurrentUrl().then(function compareCurrentUrl(url) {
+		                    return urlRegex.test(url);
+		                });
+		            });
+		        }
+		    );
+		}
 
 	function makeid()
 		{
 		    var text = "";
 		    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-		    for( var i=0; i < 5; i++ )
-		        text += possible.charAt(Math.floor(Math.random() * possible.length));
+		    for(var i=0; i < 5; i++)
+		        text += possible.charAt(Math.floor(Math.random()*possible.length));
 
 		    return text;
 		}

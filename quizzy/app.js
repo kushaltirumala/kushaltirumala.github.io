@@ -19,11 +19,18 @@ $("#userInfoButton").click(function(){
 		var str = makeid();
 		var redirectURI = "https://quizlet.com/authorize?response_type=code&client_id=4msU8P4c2B&scope=write_set&state="+str;
 		//alert(redirectURI);
-		window.open(redirectURI,'auth time');
+		
 		var currentURL = window.location.href;
+		if(currentURL.indexof("code") == -1){
+			window.open(redirectURI,'auth time');
+		}
+		else {
+			var code = currentURL.substring(currentURL.indexOf("code="));
+			alert('got the code, authenticatin right now');
+		}
 		//alert(currentURL);
-		waitForUrlToChangeTo("code=");
-		alert('hi its changed');
+		//waitForUrlToChangeTo("code=");
+		//alert('hi its changed');
 
 	}
 

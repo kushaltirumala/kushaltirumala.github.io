@@ -21,6 +21,7 @@ $("#userInfoButton").click(function(){
 		//alert(redirectURI);
 		
 		var currentURL = window.location.href;
+		console.log(currentURL.indexOf("code"));
 		if(currentURL.indexof("code") == -1){
 			window.open(redirectURI,'auth time');
 		}

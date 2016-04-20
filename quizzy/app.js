@@ -22,7 +22,7 @@ $("#userInfoButton").click(function(){
 		
 		var currentURL = window.location.href;
 		console.log(currentURL.indexOf("code"));
-		if(currentURL.indexof("code") == -1){
+		if(currentURL.indexOf("code") == -1){
 			window.open(redirectURI,'auth time');
 		}
 		else {

@@ -23,7 +23,7 @@ $("#userInfoButton").click(function(){
 		var currentURL = window.location.href;
 		//alert(currentURL);
 		waitForUrlToChangeTo("code=");
-		alert(window.location.href);
+		alert('hi its changed');
 
 	}
 

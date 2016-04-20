@@ -29,10 +29,6 @@ $("#userInfoButton").click(function(){
 			var code = currentURL.substring(currentURL.indexOf("code="));
 			alert('got the code, authenticatin right now');
 		}
-		//alert(currentURL);
-		//waitForUrlToChangeTo("code=");
-		//alert('hi its changed');
-
 	}
 
 

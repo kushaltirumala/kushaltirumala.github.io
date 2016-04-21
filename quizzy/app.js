@@ -39,7 +39,7 @@ if(window.location.href.indexOf("code")!=-1){
             beforeSend: function (request)
             {
                 request.setRequestHeader("Authorization", "Basic NG1zVThQNGMyQjpjbVRYeXB1N1FZcFUzN2NTYnp1ejJI");
-                request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+                //request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
             },
             url: url,
             success: function(msg) {

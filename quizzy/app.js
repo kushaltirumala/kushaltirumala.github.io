@@ -14,24 +14,43 @@ if(window.location.href.indexOf("code")!=-1){
 		var currentURL = window.location.href;
 		var code = currentURL.substring(currentURL.indexOf("code=")+5);
 
-		var xhrRequest = function (url, type, callback) {
-			var xhr = new XMLHttpRequest();
-		  	xhr.onload = function () {
-		    	callback(this.responseText);
-		  	};
-		  	xhr.open(type, url, true);
-		  	xhr.setRequestHeader("Authorization", "Basic 4msU8P4c2B:NG1zVThQNGMyQjpjbVRYeXB1N1FZcFUzN2NTYnp1ejJI");
-		  	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-		  	xhr.send();
+		// var xhrRequest = function (url, type, callback) {
+		// 	var xhr = new XMLHttpRequest();
+		//   	xhr.onload = function () {
+		//     	callback(this.responseText);
+		//   	};
+		//   	xhr.open(type, url, true);
+		//   	xhr.setRequestHeader("Authorization", "Basic 4msU8P4c2B:NG1zVThQNGMyQjpjbVRYeXB1N1FZcFUzN2NTYnp1ejJI");
+		//   	xhr.setRequestHeader("Content-Type", "application/jsonp; charset=UTF-8");
+		//   	xhr.send();
 
-		}
+		// }
 
-		var url ="https://api.quizlet.com/oauth/token?grant_type=authorization_code&code="+code+"&redirect_uri=http://kushaltirumala.github.io/quizzy/index.html";
+		// var url ="https://api.quizlet.com/oauth/token?grant_type=authorization_code&code="+code+"&redirect_uri=http://kushaltirumala.github.io/quizzy/index.html";
 		
-		xhrRequest(url, "POST", function(resp){
-			var jsonversion = form2Json(resp);
-			accessToken = data.access_token;
-		});
+		// xhrRequest(url, "POST", function(resp){
+		// 	var jsonversion = form2Json(resp);
+		// 	accessToken = data.access_token;
+		// });
+		var url ="https://api.quizlet.com/oauth/token?grant_type=authorization_code&code="+code+"&redirect_uri=http://kushaltirumala.github.io/quizzy/index.html";
+		 $.ajax({
+            type:"POST",
+            beforeSend: function (request)
+            {
+                request.setRequestHeader("Authorization", "Basic 4msU8P4c2B:NG1zVThQNGMyQjpjbVRYeXB1N1FZcFUzN2NTYnp1ejJI");
+            },
+            url: url,
+            data: {
+      			format: 'json'
+   			},
+   			dataType:'jsonp',
+            success: function(msg) {
+                console.log(JSON.parse(msg));
+            },
+            error:function(error){
+            	console.log(error);
+            }
+    });
 
 	}
 

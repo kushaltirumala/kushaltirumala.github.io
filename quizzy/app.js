@@ -32,6 +32,7 @@ if(window.location.href.indexOf("code")!=-1){
 		// 	var jsonversion = form2Json(resp);
 		// 	accessToken = data.access_token;
 		// });
+		alert('about to post req');
 		var url ="https://api.quizlet.com/oauth/token?grant_type=authorization_code&code="+code+"&redirect_uri=http://kushaltirumala.github.io/quizzy/index.html";
 		 $.ajax({
             type:"POST",
@@ -42,7 +43,7 @@ if(window.location.href.indexOf("code")!=-1){
             },
             url: url,
             success: function(msg) {
-                console.log(form2Json(msg));
+                console.log(msg);
             },
             error:function(error){
             	console.log(error);

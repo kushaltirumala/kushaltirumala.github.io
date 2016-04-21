@@ -4,14 +4,82 @@ $("#userInfoButton").click(function(){
 	submitUserInfo();
 });
 
+var accessToken;
+
 if(window.location.href.indexOf("code")!=-1){
 	continueQuizletAuth();
 }
 
 	function continueQuizletAuth() {
 		var currentURL = window.location.href;
-		var code = currentURL.substring(currentURL.indexOf("code="));
-		console.log(code);
+		var code = currentURL.substring(currentURL.indexOf("code=")+5);
+
+		var xhrRequest = function (url, type, callback) {
+			var xhr = new XMLHttpRequest();
+		  	xhr.onload = function () {
+		    	callback(this.responseText);
+		  	};
+		  	xhr.setRequestHeader("Authorization", "Basic NG1zVThQNGMyQjpjbVRYeXB1N1FZcFUzN2NTYnp1ejJI");
+		  	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+
+		  	xhr.open(type, url);
+		  	xhr.send();
+
+		}
+
+		var url ="https://api.quizlet.com/oauth/token?grant_type=authorization_code&code="+code+"&redirect_uri=http://kushaltirumala.github.io/quizzy/index.html";
+		
+		xhrRequest(url, "POST", function(resp){
+			var jsonversion = form2Json(resp);
+			accessToken = data.access_token;
+		});
+
+	}
+
+	function form2Json(str)
+	{
+	    var obj,i,pt,keys,j,ev;
+	    if (typeof form2Json.br !== 'function')
+	    {
+	        form2Json.br = function(repl)
+	        {
+	            if (repl.indexOf(']') !== -1)
+	            {
+	                return repl.replace(/\](.+?)(,|$)/g,function($1,$2,$3)
+	                {
+	                    return form2Json.br($2+'}'+$3);
+	                });
+	            }
+	            return repl;
+	        };
+	    }
+	    str = '{"'+(str.indexOf('%') !== -1 ? decodeURI(str) : str)+'"}';
+	    obj = str.replace(/\=/g,'":"').replace(/&/g,'","').replace(/\[/g,'":{"');
+	    obj = JSON.parse(obj.replace(/\](.+?)(,|$)/g,function($1,$2,$3){ return form2Json.br($2+'}'+$3);}));
+	    pt = ('&'+str).replace(/(\[|\]|\=)/g,'"$1"').replace(/\]"+/g,']').replace(/&([^\[\=]+?)(\[|\=)/g,'"&["$1]$2');
+	    pt = (pt + '"').replace(/^"&/,'').split('&');
+	    for (i=0;i<pt.length;i++)
+	    {
+	        ev = obj;
+	        keys = pt[i].match(/(?!:(\["))([^"]+?)(?=("\]))/g);
+	        for (j=0;j<keys.length;j++)
+	        {
+	            if (!ev.hasOwnProperty(keys[j]))
+	            {
+	                if (keys.length > (j + 1))
+	                {
+	                    ev[keys[j]] = {};
+	                }
+	                else
+	                {
+	                    ev[keys[j]] = pt[i].split('=')[1].replace(/"/g,'');
+	                    break;
+	                }
+	            }
+	            ev = ev[keys[j]];
+	        }
+	    }
+	    return obj;
 	}
 
 	function submitUserInfo() {

@@ -19,8 +19,7 @@ if(window.location.href.indexOf("code")!=-1){
 		  	xhr.onload = function () {
 		    	callback(this.responseText);
 		  	};
-
-		  	xhr.open(type, url);
+		  	xhr.open(type, url, true);
 		  	xhr.setRequestHeader("Authorization", "Basic NG1zVThQNGMyQjpjbVRYeXB1N1FZcFUzN2NTYnp1ejJI");
 		  	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
 		  	xhr.send();

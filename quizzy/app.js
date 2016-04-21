@@ -38,14 +38,11 @@ if(window.location.href.indexOf("code")!=-1){
             beforeSend: function (request)
             {
                 request.setRequestHeader("Authorization", "Basic 4msU8P4c2B:NG1zVThQNGMyQjpjbVRYeXB1N1FZcFUzN2NTYnp1ejJI");
+                request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
             },
             url: url,
-            data: {
-      			format: 'json'
-   			},
-   			dataType:'jsonp',
             success: function(msg) {
-                console.log(JSON.parse(msg));
+                console.log(form2Json(msg));
             },
             error:function(error){
             	console.log(error);

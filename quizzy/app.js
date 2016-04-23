@@ -1,11 +1,9 @@
 $(function(){
 
 $("#recognizeButton").click(function(){
-	
-	convertToCanvas("photo.jpg");
-	var canvas = document.getElementById('canvas2');
+		var canvas = document.getElementById('canvas2');
             Tesseract.recognize(canvas, {lang: 'eng'}).then(function (d) {
-                console.log(d.text)
+                console.log(d.text);
             }, function (err) {
                 console.log(err);
             });
@@ -14,6 +12,15 @@ $("#recognizeButton").click(function(){
 $("#userInfoButton").click(function(){
 	submitUserInfo();
 });
+
+
+var inputElement = document.getElementById("fileupload");
+inputElement.addEventListener("change", handleFiles, false);
+function handleFiles() {
+  var fileList = this.files; 
+  console.log(fileList.length);
+  convertToCanvas(fileList[0]);
+}
 
 var accessToken;
 

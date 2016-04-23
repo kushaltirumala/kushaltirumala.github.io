@@ -1,14 +1,54 @@
 $(function(){
 
+$("#recognizeButton").click(function(){
+	
+	convertToCanvas("photo.png");
+	var canvas = document.getElementById('canvas2');
+            Tesseract.recognize(canvas, {
+                tessedit_char_blacklist: 'zzbp'
+            }).then(function (d) {
+                console.log(d.text)
+            }, function (err) {
+                console.log(err);
+                alert(err);
+            });
+});
+
 $("#userInfoButton").click(function(){
 	submitUserInfo();
 });
 
 var accessToken;
 
-if(window.location.href.indexOf("code")!=-1){
-	continueQuizletAuth();
-}
+// if(window.location.href.indexOf("code")!=-1){
+// 	continueQuizletAuth();
+// }
+
+
+  function convertToCanvas (lastPhoto) {
+
+
+        var canvas2 = document.getElementById("canvas2");
+
+        canvas2.width = lastPhoto.width;
+
+        canvas2.height = lastPhoto.height;
+
+        var canvasbanana = canvas2.getContext("2d");
+
+        var img = new Image();
+        img.src = "photo.png";
+        img.width = "1000";
+        img.height="1000";
+        canvas2.width = img.width;
+        canvas2.height = img.height;
+        console.log(img.width + " " + img.height);
+        img.onload = function() {
+            canvasbanana.drawImage(img, 0,0);
+        }
+
+        return canvasbanana;
+    }
 
 	function continueQuizletAuth() {
 		var currentURL = window.location.href;

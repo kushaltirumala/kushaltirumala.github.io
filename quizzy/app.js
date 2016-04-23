@@ -2,15 +2,12 @@ $(function(){
 
 $("#recognizeButton").click(function(){
 	
-	convertToCanvas("photo.png");
+	convertToCanvas("photo.jpg");
 	var canvas = document.getElementById('canvas2');
-            Tesseract.recognize(canvas, {
-                tessedit_char_blacklist: 'zzbp'
-            }).then(function (d) {
+            Tesseract.recognize(canvas, {lang: 'eng'}).then(function (d) {
                 console.log(d.text)
             }, function (err) {
                 console.log(err);
-                alert(err);
             });
 });
 

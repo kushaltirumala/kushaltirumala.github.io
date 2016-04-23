@@ -1,8 +1,9 @@
 $(function(){
 
 $("#recognizeButton").click(function(){
+		alert('pressed');
 		var canvas = document.getElementById('canvas2');
-            Tesseract.recognize(canvas, {lang: 'eng'}).then(function (d) {
+            Tesseract.recognize(canvas, {progress: showProgress, lang: 'eng'}).then(function (d) {
                 console.log(d.text);
             }, function (err) {
                 console.log(err);
@@ -29,6 +30,9 @@ var accessToken;
 // }
 
 
+function showProgress(p) {
+	console.log(p);
+}
   function convertToCanvas (lastPhoto) {
 
 

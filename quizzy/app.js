@@ -1,5 +1,6 @@
 $(function(){
 
+
 $("#recognizeButton").click(function(){
 		alert('pressed');
 		var canvas = document.getElementById('canvas2');
@@ -15,13 +16,7 @@ $("#userInfoButton").click(function(){
 });
 
 
-var inputElement = document.getElementById("fileupload");
-inputElement.addEventListener("change", handleFiles, false);
-function handleFiles() {
-  var fileList = this.files; 
-  console.log(fileList.length);
-  convertToCanvas(fileList[0]);
-}
+document.getElementById('files').addEventListener('change', handleFileSelect, false);
 
 var accessToken;
 
@@ -30,12 +25,44 @@ var accessToken;
 // }
 
 
+function seperateText(text) {
+	//this function could be where we do the seperating for temp purposes
+
+}
+
+function handleFileSelect(evt) {
+	//alert('hell yeah');
+    var files = evt.target.files; 
+
+    for (var i = 0, f; f = files[i]; i++) {
+
+      if (!f.type.match('image.*')) {
+        continue;
+      }
+
+      var reader = new FileReader();
+
+      reader.onload = (function(theFile) {
+        return function(e) {
+          var span = document.createElement('span');
+          span.innerHTML = ['<img class="thumb" src="', e.target.result,
+                            '" title="', escape(theFile.name), '"/>'].join('');
+
+           convertToCanvas(e.target.result);
+          document.getElementById('list').insertBefore(span, null);
+        };
+      })(f);
+
+      reader.readAsDataURL(f);
+    }
+  }
+
 function showProgress(p) {
 	console.log(p);
 }
   function convertToCanvas (lastPhoto) {
 
-
+  		console.log("link: " + lastPhoto);
         var canvas2 = document.getElementById("canvas2");
 
         canvas2.width = lastPhoto.width;
@@ -45,7 +72,7 @@ function showProgress(p) {
         var canvasbanana = canvas2.getContext("2d");
 
         var img = new Image();
-        img.src = "photo.jpg";
+        img.src = lastPhoto;
         img.width = "1000";
         img.height="1000";
         canvas2.width = img.width;

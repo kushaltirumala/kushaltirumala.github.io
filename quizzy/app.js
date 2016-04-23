@@ -34,7 +34,7 @@ var accessToken;
         var canvasbanana = canvas2.getContext("2d");
 
         var img = new Image();
-        img.src = "photo.png";
+        img.src = "photo.jpg";
         img.width = "1000";
         img.height="1000";
         canvas2.width = img.width;

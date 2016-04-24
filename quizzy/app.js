@@ -174,7 +174,7 @@ function showProgress(p) {
 	            request.setRequestHeader("Access-Control-Allow-Headers", "X-Requested-With");
 	            request.setRequestHeader("Access-Control-Allow-Origin", "*");
 	            request.setRequestHeader("X-Requested-With", "*");
-                //request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+                request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
             },
             crossDomain: false,
             url: url,

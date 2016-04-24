@@ -17,21 +17,10 @@
 
 	<h1 style="margin:0;padding:0;font-family: 'Anonymous Pro'; text-align: center; color: white; font-size:25px; padding-top: 30px;">Choose a file, enter credentials, and sit back</h1>
 
-	<input type="text" id="username" name="username">
-	<input type="password" id="password" name="password">
 	<a id="userInfoButton">Go</a>
 	<br>
+	<input type="file" id="files" name="files[]" multiple />
 
-<style>
-  .thumb {
-    height: 75px;
-    border: 1px solid #000;
-    margin: 10px 5px 0 0;
-  }
-</style>
-
-<input type="file" id="files" name="files[]" multiple />
-<output id="list"></output>
 
 
 
@@ -39,4 +28,19 @@
 	<a id="recognizeButton">Recognize</a>
 		
 	</body>
+
+
+	<style>
+
+		#recognizeButton:hover{
+			color:#FFFFFF;
+			font-size: 50px;
+		}
+
+		input {
+			padding-left: 25%;
+		}
+
+
+	</style>
 </html>

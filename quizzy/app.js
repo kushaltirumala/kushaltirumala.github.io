@@ -20,14 +20,28 @@ document.getElementById('files').addEventListener('change', handleFileSelect, fa
 
 var accessToken;
 
-// if(window.location.href.indexOf("code")!=-1){
-// 	continueQuizletAuth();
-// }
+if(window.location.href.indexOf("code")!=-1){
+	createPostReqForSet();
+}
+var terms = [];
+var def = [];
 
-
-function seperateText(text) {
+function separateText(text) {
 	//this function could be where we do the seperating for temp purposes
+	var wordHeap = text.seperate(" ");
+	for(var i = 0; i < wordHeap,length; i+=2) {
+		terms.push(wordHeap[i]);
+	}
+	for(var i = 1; i < wordHeap.length; i+=2){
+		def.push(wordHeap[i]);
+	}
 
+	createPostReqForSet();
+
+}
+
+function createPostReqForSet() {
+		continueQuizletAuth();
 }
 
 function handleFileSelect(evt) {
@@ -44,12 +58,7 @@ function handleFileSelect(evt) {
 
       reader.onload = (function(theFile) {
         return function(e) {
-          var span = document.createElement('span');
-          span.innerHTML = ['<img class="thumb" src="', e.target.result,
-                            '" title="', escape(theFile.name), '"/>'].join('');
-
            convertToCanvas(e.target.result);
-          document.getElementById('list').insertBefore(span, null);
         };
       })(f);
 
@@ -62,7 +71,7 @@ function showProgress(p) {
 }
   function convertToCanvas (lastPhoto) {
 
-  		console.log("link: " + lastPhoto);
+  		//console.log("link: " + lastPhoto);
         var canvas2 = document.getElementById("canvas2");
 
         canvas2.width = lastPhoto.width;
@@ -89,25 +98,7 @@ function showProgress(p) {
 		var currentURL = window.location.href;
 		var code = currentURL.substring(currentURL.indexOf("code=")+5);
 
-		// var xhrRequest = function (url, type, callback) {
-		// 	var xhr = new XMLHttpRequest();
-		//   	xhr.onload = function () {
-		//     	callback(this.responseText);
-		//   	};
-		//   	xhr.open(type, url, true);
-		//   	xhr.setRequestHeader("Authorization", "Basic 4msU8P4c2B:NG1zVThQNGMyQjpjbVRYeXB1N1FZcFUzN2NTYnp1ejJI");
-		//   	xhr.setRequestHeader("Content-Type", "application/jsonp; charset=UTF-8");
-		//   	xhr.send();
-
-		// }
-
-		// var url ="https://api.quizlet.com/oauth/token?grant_type=authorization_code&code="+code+"&redirect_uri=http://kushaltirumala.github.io/quizzy/index.html";
-		
-		// xhrRequest(url, "POST", function(resp){
-		// 	var jsonversion = form2Json(resp);
-		// 	accessToken = data.access_token;
-		// });
-		alert('about to post req');
+		//alert('about to post req');
 		var url ="https://api.quizlet.com/oauth/token?grant_type=authorization_code&code="+code+"&redirect_uri=http://kushaltirumala.github.io/quizzy/index.html";
 		 $.ajax({
             type:"POST",

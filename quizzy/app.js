@@ -171,6 +171,7 @@ function showProgress(p) {
 //     if (options.crossDomain && jQuery.support.cors) {
 //         options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
 //     }
+//
 // });
 	function continueQuizletAuth() {
 		var currentURL = window.location.href;
@@ -191,6 +192,7 @@ function showProgress(p) {
             },
             url: url,
             success: function(msg) {
+            	alert('success');
                 console.log(msg);
             },
             error:function(error){

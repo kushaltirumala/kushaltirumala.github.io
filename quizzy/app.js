@@ -164,17 +164,17 @@ function showProgress(p) {
 		var code = currentURL.substring(currentURL.indexOf("code=")+5);
 
 		//alert('about to post req');
-		var url ="https://cors-anywhere.herokuapp.com/https://api.quizlet.com/oauth/token?grant_type=authorization_code&code="+code+"&redirect_uri=http://kushaltirumala.github.io/quizzy/index.html";
+		var url ="https://api.quizlet.com/oauth/token?grant_type=authorization_code&code="+code+"&redirect_uri=http://kushaltirumala.github.io/quizzy/index.html";
 		 $.ajax({
             type:"POST",
             beforeSend: function (request)
             {
                 request.setRequestHeader("Authorization", "Basic NG1zVThQNGMyQjpjbVRYeXB1N1FZcFUzN2NTYnp1ejJI");
-             //    request.setRequestHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Origin");
-	            // request.setRequestHeader("Access-Control-Allow-Headers", "X-Requested-With");
+                request.setRequestHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Origin");
+	            request.setRequestHeader("Access-Control-Allow-Headers", "X-Requested-With");
 	            request.setRequestHeader("Access-Control-Allow-Origin", "*");
-	            // request.setRequestHeader("X-Requested-With", "*");
-             //    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+	            request.setRequestHeader("X-Requested-With", "*");
+                request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
             },
             crossDomain: false,
             url: url,

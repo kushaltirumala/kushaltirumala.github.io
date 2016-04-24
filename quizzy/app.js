@@ -29,29 +29,29 @@ var terms = [];
 var def = [];
 function dispTerms(text){
 	
-	 $('#confirmed').html(text);
-         var words = $("#confirmed").text().split(" ");
-         $("#confirmed").empty();
-         $.each(words, function(i, v) {
-            $("#confirmed").append($("<div class='noob'>").text(v));
-         });
-          $('#confirmed').click(function(){ 
-         if (window.getSelection) { /* Firefox, Opera, Google Chrome and Safari */
-var new_elem = document.createElement('strong'); 
-             new_elem.setAttribute("class","highlighted");
-var sel = window.getSelection ();
-sel.modify('move','backward','word');
-sel.modify('extend','forward','word');
-var range = document.createRange();
-range = sel.getRangeAt(0); /* get the text selected. Firefox supports multiple selections, but we will get the first */
-txt = document.createTextNode(range.toString()); /* create a text node that contains the selected text */
-new_elem.appendChild(txt); /* append the node to the strong element*/
-range.deleteContents(); /* delete the current selection */
-range.insertNode(new_elem); /* add the newly created element */
-sel.removeAllRanges();
-}
-    
-    })
+		 $('#confirmed').html(text);
+	         var words = $("#confirmed").text().split(" ");
+	         $("#confirmed").empty();
+	         $.each(words, function(i, v) {
+	            $("#confirmed").append($("<div class='noob'>").text(v));
+	         });
+	          $('#confirmed').click(function(){ 
+	         if (window.getSelection) { /* Firefox, Opera, Google Chrome and Safari */
+	var new_elem = document.createElement('strong'); 
+	             new_elem.setAttribute("class","highlighted");
+	var sel = window.getSelection ();
+	sel.modify('move','backward','word');
+	sel.modify('extend','forward','word');
+	var range = document.createRange();
+	range = sel.getRangeAt(0); /* get the text selected. Firefox supports multiple selections, but we will get the first */
+	txt = document.createTextNode(range.toString()); /* create a text node that contains the selected text */
+	new_elem.appendChild(txt); /* append the node to the strong element*/
+	range.deleteContents(); /* delete the current selection */
+	range.insertNode(new_elem); /* add the newly created element */
+	sel.removeAllRanges();
+	}
+	    
+	    })
 
 }
    var sustring = "";
@@ -170,6 +170,7 @@ function showProgress(p) {
             beforeSend: function (request)
             {
                 request.setRequestHeader("Authorization", "Basic NG1zVThQNGMyQjpjbVRYeXB1N1FZcFUzN2NTYnp1ejJI");
+                request.setRequestHeader("Access-Control-Allow-Headers", "x-requested-with, x-requested-by");
                 //request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
             },
             url: url,

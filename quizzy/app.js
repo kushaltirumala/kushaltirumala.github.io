@@ -177,7 +177,7 @@ function showProgress(p) {
 		var code = currentURL.substring(currentURL.indexOf("code=")+5);
 
 		//alert('about to post req');
-		var url ="https://api.quizlet.com/oauth/token?grant_type=authorization_code&code="+code+"&redirect_uri=http://kushaltirumala.github.io/quizzy/analyze.html";
+		var url ="http://localhost:1337/https://api.quizlet.com/oauth/token?grant_type=authorization_code&code="+code+"&redirect_uri=http://kushaltirumala.github.io/quizzy/analyze.html";
 		 $.ajax({
             type:"POST",
             beforeSend: function (request)

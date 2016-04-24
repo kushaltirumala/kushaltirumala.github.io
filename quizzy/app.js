@@ -170,7 +170,10 @@ function showProgress(p) {
             beforeSend: function (request)
             {
                 request.setRequestHeader("Authorization", "Basic NG1zVThQNGMyQjpjbVRYeXB1N1FZcFUzN2NTYnp1ejJI");
-                request.setRequestHeader("Access-Control-Allow-Headers", "x-requested-with");
+                request.setRequestHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Origin");
+	            request.setRequestHeader("Access-Control-Allow-Headers", "X-Requested-With");
+	            request.setRequestHeader("Access-Control-Allow-Origin", "*");
+	            request.setRequestHeader("X-Requested-With", "*");
                 //request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
             },
             crossDomain: false,

@@ -170,44 +170,23 @@ function showProgress(p) {
 		var currentURL = window.location.href;
 		var code = currentURL.substring(currentURL.indexOf("code=")+5);
 
-		//alert('about to post req');
-		// var url ="https://api.quizlet.com/oauth/token?grant_type=authorization_code&code="+code+"&redirect_uri=http://kushaltirumala.github.io/quizzy/analyze.html";
-		//  $.ajax({
-  //           type:"POST",
-  //           beforeSend: function (request)
-  //           {
-  //               request.setRequestHeader("Authorization", "Basic NG1zVThQNGMyQjpjbVRYeXB1N1FZcFUzN2NTYnp1ejJI");
-  //            //    request.setRequestHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Origin");
-	 //            // request.setRequestHeader("Access-Control-Allow-Headers", "X-Requested-With");
-	 //            // request.setRequestHeader("Access-Control-Allow-Origin", "*");
-	 //            // request.setRequestHeader("X-Requested-With", "*");
-  //               request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-  //           },
-  //           url: url,
-  //           success: function(msg) {
-  //           	alert('success');
-  //               console.log(msg);
-  //           },
-  //           error:function(error){
-  //           	console.log(error);
-  //           }
-  //   });
-  $.ajax({
+  		$.ajax({
             type:"GET",
             url: "http://localhost:3000/quizlet?code="+code,
             success: function(msg) {
             	alert('success');
-                console.log(msg);
+            	var json = JSON.parse(msg);
+                console.log(json.daisytodd);
             },
             error:function(error){
+            	alert('error');
             	console.log(error);
             }
-    });
+    	});
+	}
 
-
-		// $.get( "http://localhost:3000/quizlet?code="+code, function(data) {
-  // 			console.log('heres the data: ' + data);
-		// });
+	function createSet(access_token) {
+		
 	}
 
 	function form2Json(str)

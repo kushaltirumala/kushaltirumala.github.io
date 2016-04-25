@@ -175,8 +175,8 @@ function showProgress(p) {
             url: "http://localhost:3000/quizlet?code="+code,
             success: function(msg) {
             	alert('success');
-            	var json = JSON.parse(msg);
-                console.log(json.daisytodd);
+            	console.log(msg);
+                console.log(msg.daisytodd);
             },
             error:function(error){
             	alert('error');
@@ -186,7 +186,7 @@ function showProgress(p) {
 	}
 
 	function createSet(access_token) {
-		
+
 	}
 
 	function form2Json(str)

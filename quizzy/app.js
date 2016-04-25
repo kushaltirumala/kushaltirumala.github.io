@@ -1,11 +1,5 @@
 $(function(){
 
-// $.ajaxPrefilter( function (options) {
-//   if (options.crossDomain && jQuery.support.cors) {
-//     var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
-//     options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
-//   }
-// });
 
 var textFill = "";
 $("#recognizeButton").click(function(){
@@ -177,7 +171,7 @@ function showProgress(p) {
 		var code = currentURL.substring(currentURL.indexOf("code=")+5);
 
 		//alert('about to post req');
-		var url ="http://localhost:1337/https://api.quizlet.com/oauth/token?grant_type=authorization_code&code="+code+"&redirect_uri=http://kushaltirumala.github.io/quizzy/analyze.html";
+		var url ="https://api.quizlet.com/oauth/token?grant_type=authorization_code&code="+code+"&redirect_uri=http://kushaltirumala.github.io/quizzy/analyze.html";
 		 $.ajax({
             type:"POST",
             beforeSend: function (request)

@@ -192,11 +192,22 @@ function showProgress(p) {
   //           	console.log(error);
   //           }
   //   });
+  $.ajax({
+            type:"GET",
+            url: "http://localhost:3000/quizlet?code="+code,
+            success: function(msg) {
+            	alert('success');
+                console.log(msg);
+            },
+            error:function(error){
+            	console.log(error);
+            }
+    });
 
 
-		$.get( "http://localhost:3000/quizlet?code="+code, function( data ) {
-  			console.log('heres the data: ' + data);
-		});
+		// $.get( "http://localhost:3000/quizlet?code="+code, function(data) {
+  // 			console.log('heres the data: ' + data);
+		// });
 	}
 
 	function form2Json(str)

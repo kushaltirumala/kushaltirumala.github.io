@@ -183,6 +183,24 @@ function showProgress(p) {
             	console.log(error);
             }
     	});
+
+  		var title  = "newset";
+  		var body = {
+  			'terms':['blair', 'alex', 'french'],
+  			'definitions':['blairiscool', 'alexiscool', 'frenchiscool']
+  		}
+    	$.ajax({
+    		type:"POST",
+    		url:"http://localhost:3000/newSet?title="+title,
+    		dataType: json,
+    		data:JSON.stringify(body),
+    		success:function(msg){
+
+    		},
+    		error:function(error){
+    			alert('error with creating a new set');
+    		}
+    	});
 	}
 
 	function createSet(access_token) {
@@ -278,7 +296,3 @@ function showProgress(p) {
 		}
 
 });
-
-function choose() {
-	
-}

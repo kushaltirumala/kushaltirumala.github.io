@@ -192,7 +192,7 @@ function showProgress(p) {
     	$.ajax({
     		type:"POST",
     		url:"http://localhost:3000/newSet?title="+title,
-    		dataType: json,
+    		dataType: 'json',
     		data:JSON.stringify(body),
     		success:function(msg){
 

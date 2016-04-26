@@ -18,6 +18,10 @@ $("#userInfoButton").click(function(){
 	submitUserInfo();
 });
 
+$("#newset").click(function(){
+	createSet();
+});
+
 
 document.getElementById('files').addEventListener('change', handleFileSelect, false);
 
@@ -184,7 +188,12 @@ function showProgress(p) {
             }
     	});
 
-  		var title  = "newset";
+	}
+
+
+
+	function createSet() {
+			var title  = "newset";
   		var body = {
   			'terms':['blair', 'alex', 'french'],
   			'definitions':['blairiscool', 'alexiscool', 'frenchiscool']
@@ -195,16 +204,12 @@ function showProgress(p) {
     		dataType: 'json',
     		data:JSON.stringify(body),
     		success:function(msg){
-
+    			console.log(msg);
     		},
     		error:function(error){
     			alert('error with creating a new set');
     		}
     	});
-	}
-
-	function createSet(access_token) {
-
 	}
 
 	function form2Json(str)

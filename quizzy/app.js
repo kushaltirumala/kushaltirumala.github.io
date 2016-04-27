@@ -193,7 +193,7 @@ function showProgress(p) {
 
 
 	function createSet() {
-			var title  = "newset";
+		var title  = "newset";
   		var body = {
   			'terms':['blair', 'alex', 'french'],
   			'definitions':['blairiscool', 'alexiscool', 'frenchiscool']
@@ -201,15 +201,15 @@ function showProgress(p) {
     	$.ajax({
     		type:"POST",
     		url:"http://localhost:3000/newSet?title="+title,
-    		contentType: 'application/json',
+    		contentType: "application/json",
     		processData: false,
-    		dataType: 'json',
+    		dataType: "json",
     		data:JSON.stringify(body),
     		success:function(msg){
     			console.log(msg);
     		},
     		error:function(error){
-    			alert('error with creating a new set');
+    			alert("error with creating a new set");
     		}
     	});
 	}

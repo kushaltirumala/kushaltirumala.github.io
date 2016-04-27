@@ -42,106 +42,84 @@ function dispTerms(text){
 	         });
 	          $('#confirmed').click(function(){ 
 	         if (window.getSelection) { /* Firefox, Opera, Google Chrome and Safari */
-	var new_elem = document.createElement('strong'); 
-	             new_elem.setAttribute("class","highlighted");
-	var sel = window.getSelection ();
-	sel.modify('move','backward','word');
-	sel.modify('extend','forward','word');
-	var range = document.createRange();
-	range = sel.getRangeAt(0); /* get the text selected. Firefox supports multiple selections, but we will get the first */
-	txt = document.createTextNode(range.toString()); /* create a text node that contains the selected text */
-	new_elem.appendChild(txt); /* append the node to the strong element*/
-	range.deleteContents(); /* delete the current selection */
-	range.insertNode(new_elem); /* add the newly created element */
-	sel.removeAllRanges();
+				var new_elem = document.createElement('strong'); 
+				             new_elem.setAttribute("class","highlighted");
+				var sel = window.getSelection ();
+				sel.modify('move','backward','word');
+				sel.modify('extend','forward','word');
+				var range = document.createRange();
+				range = sel.getRangeAt(0); 
+				txt = document.createTextNode(range.toString()); 
+				new_elem.appendChild(txt); 
+				range.deleteContents(); 
+				range.insertNode(new_elem); 
+				sel.removeAllRanges();
+				}  
+	    	})
 	}
-	    
+   	var sustring = "";
+	var indecies = [];
+	$('#clear').click(function(){
+		terms = [];
+		def= [];
+	})
+	$('#analyze').click(function(){
+	         indecies = [];
+	            $(".noob").each(function(i, obj){
+	                if(obj.children.length > 0){
+	         terms.push(obj.firstElementChild.innerHTML);
+	                    indecies.push(i);
+	                    }
+	     })
+	        indecies.push($('.noob').size());
+	        console.log($('.noob').size())
+	        var j = 0;
+	        var d = 0;
+	        while(j<indecies.length-1){
+	            d= indecies[j];
+	        while(d<indecies[j+1]-1){
+	         sustring += " ";
+	            sustring += $(".noob").eq(d+1).text();
+	        	d++;
+	        }
+	        def.push(sustring);
+	            sustring = "";
+	        j++;
+	        }
+		createPostReqForSet();   
 	    })
 
-}
-   var sustring = "";
-var indecies = [];
-$('#clear').click(function(){
-	terms = [];
-	def= [];
-})
-$('#analyze').click(function(){
-         indecies = [];
-            $(".noob").each(function(i, obj){
-                if(obj.children.length > 0){
-         terms.push(obj.firstElementChild.innerHTML);
-                    indecies.push(i);
-                    }
-//                else{
-//                    def.push(this.innerHTML);
-//                } 
-     })
-            indecies.push($('.noob').size());
-         console.log($('.noob').size())
-            //indecies[0] = 1, indecies[1] = 5
-            var j = 0;
-         var d = 0;
-        while(j<indecies.length-1){
-            d= indecies[j];
-        while(d<indecies[j+1]-1){
-         sustring += " ";
-            sustring += $(".noob").eq(d+1).text();
-        d++;
-        }
-        def.push(sustring);
-            sustring = "";
-        j++;
-        }
-	createPostReqForSet();
-        
-     })
-// function separateText(text) {
-// 	// //this function could be where we do the seperating for temp purposes
-// 	// var wordHeap = text.seperate(" ");
-// 	// for(var i = 0; i < wordHeap,length; i+=2) {
-// 	// 	terms.push(wordHeap[i]);
-// 	// }
-// 	// for(var i = 1; i < wordHeap.length; i+=2){
-// 	// 	def.push(wordHeap[i]);
-// 	// }
-  
+	function createPostReqForSet() {
+			continueQuizletAuth();
+	}
 
-// 	createPostReqForSet();
+	function handleFileSelect(evt) {
+		//alert('hell yeah');
+	    var files = evt.target.files; 
 
-// }
+	    for (var i = 0, f; f = files[i]; i++) {
 
-function createPostReqForSet() {
-		continueQuizletAuth();
-}
+	      if (!f.type.match('image.*')) {
+	        continue;
+	      }
 
-function handleFileSelect(evt) {
-	//alert('hell yeah');
-    var files = evt.target.files; 
+	      var reader = new FileReader();
 
-    for (var i = 0, f; f = files[i]; i++) {
+	      reader.onload = (function(theFile) {
+	        return function(e) {
+	           convertToCanvas(e.target.result);
+	        };
+	      })(f);
 
-      if (!f.type.match('image.*')) {
-        continue;
-      }
+	      reader.readAsDataURL(f);
+	    }
+	}
 
-      var reader = new FileReader();
-
-      reader.onload = (function(theFile) {
-        return function(e) {
-           convertToCanvas(e.target.result);
-        };
-      })(f);
-
-      reader.readAsDataURL(f);
-    }
-  }
-
-function showProgress(p) {
-	console.log(p);
-}
+	function showProgress(p) {
+		console.log(p);
+	}
   function convertToCanvas (lastPhoto) {
 
-  		//console.log("link: " + lastPhoto);
         var canvas2 = document.getElementById("canvas2");
 
         canvas2.width = lastPhoto.width;
@@ -164,12 +142,6 @@ function showProgress(p) {
         return canvasbanana;
     }
 
-// jQuery.ajaxPrefilter(function(options) {
-//     if (options.crossDomain && jQuery.support.cors) {
-//         options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
-//     }
-//
-// });
 	function continueQuizletAuth() {
 		var currentURL = window.location.href;
 		var code = currentURL.substring(currentURL.indexOf("code=")+5);
@@ -189,8 +161,6 @@ function showProgress(p) {
     	});
 
 	}
-
-
 
 	function createSet() {
 		var title  = "newset";

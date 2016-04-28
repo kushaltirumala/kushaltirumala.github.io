@@ -5,13 +5,7 @@ var textFill = "";
 $("#recognizeButton").click(function(){
 		alert('pressed');
 		var canvas = document.getElementById('canvas2');
-            Tesseract.recognize(canvas, {progress: showProgress, lang: 'eng'}).then(function (d) {
-				textFill = (d.text).replace(/(\r\n|\n|\r)/gm," ");
-				console.log(textFill);
-				dispTerms(textFill);
-            }, function (err) {
-                console.log(err);
-            });
+    	analyze(canvas);
 });
 
 $("#userInfoButton").click(function(){
@@ -272,4 +266,52 @@ function dispTerms(text){
 		    return text;
 		}
 
+		function dataURItoBlob(dataURI) {
+		    var binary = atob(dataURI.split(',')[1]);
+		    var array = [];
+		    for(var i = 0; i < binary.length; i++) {
+		        array.push(binary.charCodeAt(i));
+		    }
+		    return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
+		}
+
+		function analyze(canvas) {
+
+//if we wanna ever use tesseract, which I don't really see why to
+			 //         Tesseract.recognize(canvas, {progress: showProgress, lang: 'eng'}).then(function (d) {
+				// textFill = (d.text).replace(/(\r\n|\n|\r)/gm," ");
+				// console.log(textFill);
+				// dispTerms(textFill);
+    //         }, function (err) {
+    //             console.log(err);
+    //         });
+
+     var imageData = canvas.toDataURL();
+     var blob = dataURItoBlob(imageData);
+     console.log(imageData);
+     console.log(blob);
+     var fd = new FormData(document.forms[0]);
+     fd.append("canvasImage", blob);
+     //imageData = imageData.replace(/^data:image\/(png|jpg);base64,/, "");
+     var params = {
+            "language": "en",
+            "detectOrientation ": "true",
+        }; 
+        $.ajax({
+            url: "https://api.projectoxford.ai/vision/v1/ocr?" + $.param(params),
+            beforeSend: function(req){
+                req.setRequestHeader("Content-Type","application/octet-stream");
+                req.setRequestHeader("Ocp-Apim-Subscription-Key","900313fb426048dc9369d4661f07ee66");
+            },
+            processData: false,
+            type: "POST",
+            data:fd,
+            success:function(msg){
+    			console.log(msg);
+    		},
+    		error:function(error){
+    			alert(error);
+    		}
+        })
+    }
 });

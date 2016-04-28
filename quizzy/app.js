@@ -275,6 +275,14 @@ function dispTerms(text){
 		    return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
 		}
 
+		function handleOxford(data) {
+			var lines = data.regions[0].lines;
+			//could break up by lines, draw a line down the middle, everything on either side is either a term or a definition
+			//OR we can just crop and do it like that
+			
+		}
+
+
 		function analyze(canvas) {
 
 //if we wanna ever use tesseract, which I don't really see why to
@@ -287,12 +295,8 @@ function dispTerms(text){
     //         });
 
      var imageData = canvas.toDataURL();
+
      var blob = dataURItoBlob(imageData);
-     console.log(imageData);
-     console.log(blob);
-     var fd = new FormData(document.forms[0]);
-     fd.append("canvasImage", blob);
-     //imageData = imageData.replace(/^data:image\/(png|jpg);base64,/, "");
      var params = {
             "language": "en",
             "detectOrientation ": "true",
@@ -305,9 +309,10 @@ function dispTerms(text){
             },
             processData: false,
             type: "POST",
-            data:fd,
+            data:blob,
             success:function(msg){
-    			console.log(msg);
+    			console.log(JSON.stringify(msg));
+    			handleOxford(msg);
     		},
     		error:function(error){
     			alert(error);

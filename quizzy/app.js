@@ -5,16 +5,45 @@ var textFill = "";
 $("#recognizeButton").click(function(){
 		alert('pressed');
 		var canvas = document.getElementById('canvas2');
-    	analyze(canvas);
+		$('#canvas2').Jcrop({
+                    onSelect: updatePreview,
+                    allowSelect: true,
+                    allowMove: true,
+                    allowResize: true,
+                    aspectRatio: 0,
+                    boxWidth: canvas.width, 
+                    boxHeight: canvas.height
+                });
 });
 
 $("#userInfoButton").click(function(){
 	submitUserInfo();
 });
 
+$("#cropimage").click(function(){
+	cropImageToSend();
+});
+
 $("#newset").click(function(){
 	createSet();
 });
+
+function cropImageToSend() {
+	var canvas=document.getElementById("viewport");
+	analyze(canvas);
+}
+
+function updatePreview(c) {
+    if (parseInt(c.w) > 0) {
+        var imageObj = $("#canvas2")[0];
+        var canvas = document.getElementById("viewport");
+        var context = canvas.getContext("2d");
+
+        if (imageObj != null && c.x != 0 && c.y != 0 && c.w != 0 && c.h != 0) {
+            context.drawImage(imageObj, c.x, c.y, c.w, c.h, 0, 0, canvas.width, canvas.height);
+        }
+    }
+}
 
 
 document.getElementById('files').addEventListener('change', handleFileSelect, false);
@@ -124,14 +153,12 @@ function dispTerms(text){
 
         var img = new Image();
         img.src = lastPhoto;
-        img.width = "1000";
-        img.height="1000";
-        canvas2.width = img.width;
-        canvas2.height = img.height;
-        console.log(img.width + " " + img.height);
         img.onload = function() {
+        	canvas2.width = img.width;
+        	canvas2.height = img.height;
             canvasbanana.drawImage(img, 0,0);
         }
+        console.log(img.width + " " + img.height);
 
         return canvasbanana;
     }
@@ -149,7 +176,7 @@ function dispTerms(text){
                 console.log(msg.daisytodd);
             },
             error:function(error){
-            	alert('error');
+            	//alert('error');
             	console.log(error);
             }
     	});
@@ -279,7 +306,7 @@ function dispTerms(text){
 			var lines = data.regions[0].lines;
 			//could break up by lines, draw a line down the middle, everything on either side is either a term or a definition
 			//OR we can just crop and do it like that
-			
+
 		}
 
 
@@ -311,6 +338,7 @@ function dispTerms(text){
             type: "POST",
             data:blob,
             success:function(msg){
+
     			console.log(JSON.stringify(msg));
     			handleOxford(msg);
     		},

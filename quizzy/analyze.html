@@ -6,7 +6,10 @@
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
+		<script src='jcrop/js/jquery.Jcrop.js'></script>
 		<link href='https://fonts.googleapis.com/css?family=Anonymous+Pro' rel='stylesheet' type='text/css'>
+		<link href='jcrop/css/jquery.Jcrop.css' rel='stylesheet' type='text/css'>
+
 		        <script src="tesseract.js"></script>
 <!-- <script src="choose.js"></script>
  -->		<script src="app.js"></script>
@@ -22,10 +25,13 @@
 	<input type="file" id="files" name="files[]" multiple />
 	<a id="recognizeButton">Recognize</a>
 	<div id="confirmed"></div>
-	<a id="clear"><button>clear selections</button></a>
-	<a id="analyze"><button>Submit set</button></a>
 	<canvas id="canvas2"></canvas>
+	<canvas id="viewport" width="602" height="500"></canvas>
+	<a id="cropimage"><button>Crop image</button></a>
+
+
 	<a id="newset"><button>Newset</button></a>
+	
 
 	</body>
 	<style>

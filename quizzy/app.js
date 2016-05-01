@@ -338,8 +338,8 @@ if(window.location.href.indexOf("code")!=-1){
             	console.log(upperbound);
             	for(var i = 0; i < data.regions.length; i++){
             		for(var j = 0; j < data.regions[i].lines.length; j++){
-            			for(var k = 0; k <  data.regions[i].lines[j].words.length;k++) {
-            				var boundstemp = data.regions[0].lines[j].words[k].boundingBox.split(',');
+            			for(var k = 0; k <  data.regions[i].lines[j].words.length; k++) {
+            				var boundstemp = data.regions[i].lines[j].words[k].boundingBox.split(',');
             				var upperboundstemp = giveUpperBounds(boundstemp);
             				if(upperboundstemp < upperbound)
             					ter.push(data.regions[i].lines[j].words[k].text);

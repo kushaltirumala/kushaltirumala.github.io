@@ -352,7 +352,7 @@ if(window.location.href.indexOf("code")!=-1){
             	if (ter.length > de.length)
             		ter.splice(0, de.length);
             	else if (de.length > ter.length)
-            		de.split(0, ter.length);
+            		de.splice(0, ter.length);
 
 
                 console.log(ter);

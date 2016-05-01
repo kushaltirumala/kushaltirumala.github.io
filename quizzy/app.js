@@ -313,7 +313,7 @@ if(window.location.href.indexOf("code")!=-1){
 
      var blob = dataURItoBlob(imageData);
      var params = {
-            "language": "en",
+            "language": "unk",
             "detectOrientation ": "true",
         }; 
         $.ajax({

@@ -35,7 +35,9 @@ $("#newset").click(function(){
 
 function cropImageToSend() {
 	var canvas=document.getElementById("viewport");
-	analyze(canvas);
+	analyze(canvas, function(terms, definitions){
+		postSet(terms, definitions);
+	});
 }
 
 function updatePreview(c) {
@@ -129,11 +131,8 @@ if(window.location.href.indexOf("code")!=-1){
 
 	}
 
-	function createSet() {
-		var canvas = document.getElementById('canvas2');
-
-		analyze(canvas, function(terms, definitions) { 
-			var title  = "newset";
+	function postSet(terms, definitions) {
+		var title  = "newset";
 			terms = ['hi', 'lol'];
 			definitions = [' is mean', 'is cool'];
 	  		var body = {
@@ -150,15 +149,19 @@ if(window.location.href.indexOf("code")!=-1){
 	    		success:function(msg){
 	    			var x = window.confirm("Would you like to go to your set?");
 			          if(x){
-				          window.open("http://quizlet.com" + msg.url);
-			          } else {
-				          alert(msg);
-			          }
+				          window.open("http://quizlet.com");
+			          } 
 	    		},
 	    		error:function(error){
 	    			alert("error with creating a new set");
 	    		}
 	    	});
+	}
+
+	function createSet() {
+		var canvas = document.getElementById('canvas2');
+		analyze(canvas, function(terms, definitions) { 
+			postSet(terms, definitions);
     	})
 	}
 
@@ -324,31 +327,23 @@ if(window.location.href.indexOf("code")!=-1){
             data:blob
         })
         .done(function(data) {
-        	console.log(data);
+        	console.log(JSON.stringify(data));
           var lineText = "";
           var ter = [];
           var de = [];
             if (data.regions != null) {
             	console.log(data.regions.length);
-                for (var i = 0; i < data.regions.length; i++) {
-                	
-                    label1: for (var j = 0; j < data.regions[i].lines.length; j++) {
-                         for (var k = 0; k < data.regions[i].lines[j].words.length; k++) {
-                        	if((data.regions[i].lines[j].words[k].text.substring(0,7)== "EPISODE")){
-								continue label1;
-                        	}
-                            lineText += data.regions[i].lines[j].words[k].text + " ";   
-                        }
-                        if(i==1){
-                        ter.push(lineText);
-                        }
-                        else if(i==2){
-                        	de.push(lineText);
-                        	console.log(lineText);
-                        }
-                        lineText = "";
-                    }
-                }
+            	var bounds = data.regions[0].boundingBox.split(',');
+            	var lowerbound = bounds[0];
+            	var upperbound = bounds[0]+bounds[2];
+            	console.log(upperbound);
+            	// for(var i = 0; i < data.regions.length; i++){
+            	// 	for(var j = 0; j < data.regions[i].lines.length; i++){
+            	// 		for(var k = 0; k <  data.regions[i].lines[j].words.length) {
+            	// 			var bounds = data.regions[0].boundingBox.split(',');
+            	// 		}
+            	// 	}
+            	// }
                 console.log(ter);
                 console.log(de);
               	handleData(ter,de); 

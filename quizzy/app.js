@@ -134,6 +134,8 @@ if(window.location.href.indexOf("code")!=-1){
 
 		analyze(canvas, function(terms, definitions) { 
 			var title  = "newset";
+			terms = ['hi', 'lol'];
+			definitions = [' is mean', 'is cool'];
 	  		var body = {
 	  			'terms':terms,
 	  			'definitions':definitions
@@ -322,6 +324,7 @@ if(window.location.href.indexOf("code")!=-1){
             data:blob
         })
         .done(function(data) {
+        	console.log(data);
           var lineText = "";
           var ter = [];
           var de = [];

@@ -119,7 +119,7 @@ if(window.location.href.indexOf("code")!=-1){
             success: function(msg) {
             	alert('success');
             	console.log(msg);
-                console.log(msg.daisytodd);
+                console.log(msg.access);
             },
             error:function(error){
             	//alert('error');

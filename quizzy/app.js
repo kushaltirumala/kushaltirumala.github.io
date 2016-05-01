@@ -379,10 +379,6 @@ if(window.location.href.indexOf("code")!=-1){
                 console.log(ter);
                 console.log(de);
               	handleData(ter,de); 
-            }
-            else {
-                console.log('empty');
-        }
         })
         .fail(function(err) {
             console.log(JSON.stringify(err));

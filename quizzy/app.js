@@ -3,7 +3,16 @@ $(function(){
 
 var textFill = "";
 $("#recognizeButton").click(function(){
-		alert('pressed');
+	var canvas = document.getElementById('canvas2');
+	analyze(canvas);
+});
+
+$("#userInfoButton").click(function(){
+	submitUserInfo();
+});
+
+$("#startcropping").click(function(){
+	alert('pressed');
 		var canvas = document.getElementById('canvas2');
 		$('#canvas2').Jcrop({
                     onSelect: updatePreview,
@@ -14,10 +23,6 @@ $("#recognizeButton").click(function(){
                     boxWidth: canvas.width, 
                     boxHeight: canvas.height
                 });
-});
-
-$("#userInfoButton").click(function(){
-	submitUserInfo();
 });
 
 $("#cropimage").click(function(){
@@ -38,7 +43,6 @@ function updatePreview(c) {
         var imageObj = $("#canvas2")[0];
         var canvas = document.getElementById("viewport");
         var context = canvas.getContext("2d");
-
         if (imageObj != null && c.x != 0 && c.y != 0 && c.w != 0 && c.h != 0) {
             context.drawImage(imageObj, c.x, c.y, c.w, c.h, 0, 0, canvas.width, canvas.height);
         }
@@ -53,64 +57,6 @@ var accessToken;
 if(window.location.href.indexOf("code")!=-1){
 	createPostReqForSet();
 }
-var terms = [];
-var def = [];
-function dispTerms(text){
-	
-		 $('#confirmed').html(text);
-	         var words = $("#confirmed").text().split(" ");
-	         $("#confirmed").empty();
-	         $.each(words, function(i, v) {
-	            $("#confirmed").append($("<div class='noob'>").text(v));
-	         });
-	          $('#confirmed').click(function(){ 
-	         if (window.getSelection) { /* Firefox, Opera, Google Chrome and Safari */
-				var new_elem = document.createElement('strong'); 
-				             new_elem.setAttribute("class","highlighted");
-				var sel = window.getSelection ();
-				sel.modify('move','backward','word');
-				sel.modify('extend','forward','word');
-				var range = document.createRange();
-				range = sel.getRangeAt(0); 
-				txt = document.createTextNode(range.toString()); 
-				new_elem.appendChild(txt); 
-				range.deleteContents(); 
-				range.insertNode(new_elem); 
-				sel.removeAllRanges();
-				}  
-	    	})
-	}
-   	var sustring = "";
-	var indecies = [];
-	$('#clear').click(function(){
-		terms = [];
-		def= [];
-	})
-	$('#analyze').click(function(){
-	         indecies = [];
-	            $(".noob").each(function(i, obj){
-	                if(obj.children.length > 0){
-	         terms.push(obj.firstElementChild.innerHTML);
-	                    indecies.push(i);
-	                    }
-	     })
-	        indecies.push($('.noob').size());
-	        console.log($('.noob').size())
-	        var j = 0;
-	        var d = 0;
-	        while(j<indecies.length-1){
-	            d= indecies[j];
-	        while(d<indecies[j+1]-1){
-	         sustring += " ";
-	            sustring += $(".noob").eq(d+1).text();
-	        	d++;
-	        }
-	        def.push(sustring);
-	            sustring = "";
-	        j++;
-	        }
-		createPostReqForSet();   
-	    })
 
 	function createPostReqForSet() {
 			continueQuizletAuth();
@@ -184,26 +130,36 @@ function dispTerms(text){
 	}
 
 	function createSet() {
-		var title  = "newset";
-  		var body = {
-  			'terms':['blair', 'alex', 'french'],
-  			'definitions':['blairiscool', 'alexiscool', 'frenchiscool']
-  		}
-    	$.ajax({
-    		type:"POST",
-    		url:"http://localhost:3000/newSet?title="+title,
-    		contentType: "application/json",
-    		processData: false,
-    		dataType: "json",
-    		data:JSON.stringify(body),
-    		success:function(msg){
-    			console.log(msg);
-    		},
-    		error:function(error){
-    			alert("error with creating a new set");
-    		}
-    	});
+		var canvas = document.getElementById('canvas2');
+
+		analyze(canvas, function(terms, definitions) { 
+			var title  = "newset";
+	  		var body = {
+	  			'terms':terms,
+	  			'definitions':definitions
+	  		}
+	    	$.ajax({
+	    		type:"POST",
+	    		url:"http://localhost:3000/newSet?title="+title,
+	    		contentType: "application/json",
+	    		processData: false,
+	    		dataType: "json",
+	    		data:JSON.stringify(body),
+	    		success:function(msg){
+	    			var x = window.confirm("Would you like to go to your set?");
+			          if(x){
+				          window.open("http://quizlet.com" + msg.url);
+			          } else {
+				          alert(msg);
+			          }
+	    		},
+	    		error:function(error){
+	    			alert("error with creating a new set");
+	    		}
+	    	});
+    	})
 	}
+
 
 	function form2Json(str)
 	{
@@ -282,7 +238,7 @@ function dispTerms(text){
 		    );
 		}
 
-	function makeid()
+		function makeid()
 		{
 		    var text = "";
 		    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -302,15 +258,42 @@ function dispTerms(text){
 		    return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
 		}
 
-		function handleOxford(data) {
-			var lines = data.regions[0].lines;
-			//could break up by lines, draw a line down the middle, everything on either side is either a term or a definition
-			//OR we can just crop and do it like that
+		// function handleOxford(data) {
+		// 	var lineText = "";
+  //         var ter = [];
+  //         var de = [];
+  //           if (data.regions != null) {
+  //           	console.log(data.regions.length);
+  //               for (var i = 0; i < data.regions.length; i++) {
+                	
+  //                   label1: for (var j = 0; j < data.regions[i].lines.length; j++) {
+  //                        for (var k = 0; k < data.regions[i].lines[j].words.length; k++) {
+  //                       	if((data.regions[i].lines[j].words[k].text.substring(0,7)== "EPISODE")){
+		// 						continue label1;
+  //                       	}
+  //                           lineText += data.regions[i].lines[j].words[k].text + " ";   
+  //                       }
+  //                       if(i==1){
+  //                       ter.push(lineText);
+  //                       }
+  //                       else if(i==2){
+  //                       	de.push(lineText);
+  //                       	console.log(lineText);
+  //                       }
+  //                       lineText = "";
+  //                   }
+  //               }
+  //               console.log(ter);
+  //               console.log(de);
+  //           }
+  //           else {
+  //               console.log('empty');
+  //       }
 
-		}
+		// }
 
 
-		function analyze(canvas) {
+		function analyze(canvas, handleData) {
 
 //if we wanna ever use tesseract, which I don't really see why to
 			 //         Tesseract.recognize(canvas, {progress: showProgress, lang: 'eng'}).then(function (d) {
@@ -336,15 +319,43 @@ function dispTerms(text){
             },
             processData: false,
             type: "POST",
-            data:blob,
-            success:function(msg){
-
-    			console.log(JSON.stringify(msg));
-    			handleOxford(msg);
-    		},
-    		error:function(error){
-    			alert(error);
-    		}
+            data:blob
         })
+        .done(function(data) {
+          var lineText = "";
+          var ter = [];
+          var de = [];
+            if (data.regions != null) {
+            	console.log(data.regions.length);
+                for (var i = 0; i < data.regions.length; i++) {
+                	
+                    label1: for (var j = 0; j < data.regions[i].lines.length; j++) {
+                         for (var k = 0; k < data.regions[i].lines[j].words.length; k++) {
+                        	if((data.regions[i].lines[j].words[k].text.substring(0,7)== "EPISODE")){
+								continue label1;
+                        	}
+                            lineText += data.regions[i].lines[j].words[k].text + " ";   
+                        }
+                        if(i==1){
+                        ter.push(lineText);
+                        }
+                        else if(i==2){
+                        	de.push(lineText);
+                        	console.log(lineText);
+                        }
+                        lineText = "";
+                    }
+                }
+                console.log(ter);
+                console.log(de);
+              	handleData(ter,de); 
+            }
+            else {
+                console.log('empty');
+        }
+        })
+        .fail(function(err) {
+            console.log(JSON.stringify(err));
+        });
     }
 });

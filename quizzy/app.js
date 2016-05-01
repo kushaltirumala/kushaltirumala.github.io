@@ -331,30 +331,51 @@ if(window.location.href.indexOf("code")!=-1){
           var lineText = "";
           var ter = [];
           var de = [];
-            if (data.regions != null) {
-            	console.log(data.regions.length);
-            	var bounds = data.regions[0].boundingBox.split(',');
-            	var upperbound = giveUpperBounds(bounds);
-            	console.log(upperbound);
-            	for(var i = 0; i < data.regions.length; i++){
-            		for(var j = 0; j < data.regions[i].lines.length; j++){
-            			for(var k = 0; k <  data.regions[i].lines[j].words.length; k++) {
-            				var boundstemp = data.regions[i].lines[j].words[k].boundingBox.split(',');
-            				var upperboundstemp = giveUpperBounds(boundstemp);
-            				if(upperboundstemp < upperbound)
-            					ter.push(data.regions[i].lines[j].words[k].text);
-            				else
-            					de.push(data.regions[i].lines[j].words[k].text);
-            			}
-            		}
-            	}
+          //works but glitches sometimes
+            // if (data.regions != null) {
+            // 	console.log(data.regions.length);
+            // 	var bounds = data.regions[0].boundingBox.split(',');
+            // 	var upperbound = giveUpperBounds(bounds);
+            // 	console.log(upperbound);
+            // 	for(var i = 0; i < data.regions.length; i++){
+            // 		for(var j = 0; j < data.regions[i].lines.length; j++){
+            // 			for(var k = 0; k <  data.regions[i].lines[j].words.length; k++) {
+            // 				var boundstemp = data.regions[i].lines[j].words[k].boundingBox.split(',');
+            // 				var upperboundstemp = giveUpperBounds(boundstemp);
+            // 				if(upperboundstemp < upperbound)
+            // 					ter.push(data.regions[i].lines[j].words[k].text);
+            // 				else
+            // 					de.push(data.regions[i].lines[j].words[k].text);
+            // 			}
+            // 		}
+            // 	}
 
-            	if (ter.length > de.length)
+            // 	if (ter.length > de.length)
+            // 		ter.splice(0, de.length);
+            // 	else if (de.length > ter.length)
+            // 		de.splice(0, ter.length);
+
+            for(var i = 0; i < data.regions[0].lines.length){
+            	var text =""
+            	for(var j=0; j < data.regions[0].lines[i].words.length; j++){
+            		text+=(data.regions[0].lines[i].words[j].text);
+            	}
+            	terms.push(text);
+            }
+            for(var i = 0; i < data.regions[1].lines.length){
+            	var text = "";
+            	for(var j=0; j < data.regions[1].lines[i].words.length; j++){
+            		text+=(data.regions[1].lines[i].words[j].text);
+            	}
+            	de.push(text);
+            }
+
+            if (ter.length > de.length)
             		ter.splice(0, de.length);
             	else if (de.length > ter.length)
             		de.splice(0, ter.length);
 
-
+            	
                 console.log(ter);
                 console.log(de);
               	handleData(ter,de); 

@@ -360,7 +360,7 @@ if(window.location.href.indexOf("code")!=-1){
             	for(var j=0; j < data.regions[0].lines[i].words.length; j++){
             		text+=(data.regions[0].lines[i].words[j].text);
             	}
-            	terms.push(text);
+            	ter.push(text);
             }
             for(var i = 0; i < data.regions[1].lines.length; i++){
             	var text = "";

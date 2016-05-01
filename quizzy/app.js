@@ -355,14 +355,14 @@ if(window.location.href.indexOf("code")!=-1){
             // 	else if (de.length > ter.length)
             // 		de.splice(0, ter.length);
 
-            for(var i = 0; i < data.regions[0].lines.length){
+            for(var i = 0; i < data.regions[0].lines.length; i++){
             	var text =""
             	for(var j=0; j < data.regions[0].lines[i].words.length; j++){
             		text+=(data.regions[0].lines[i].words[j].text);
             	}
             	terms.push(text);
             }
-            for(var i = 0; i < data.regions[1].lines.length){
+            for(var i = 0; i < data.regions[1].lines.length; i++){
             	var text = "";
             	for(var j=0; j < data.regions[1].lines[i].words.length; j++){
             		text+=(data.regions[1].lines[i].words[j].text);
@@ -375,7 +375,7 @@ if(window.location.href.indexOf("code")!=-1){
             	else if (de.length > ter.length)
             		de.splice(0, ter.length);
 
-            	
+
                 console.log(ter);
                 console.log(de);
               	handleData(ter,de); 

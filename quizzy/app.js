@@ -133,8 +133,6 @@ if(window.location.href.indexOf("code")!=-1){
 
 	function postSet(terms, definitions) {
 		var title  = "newset";
-			terms = ['hi', 'lol'];
-			definitions = [' is mean', 'is cool'];
 	  		var body = {
 	  			'terms':terms,
 	  			'definitions':definitions
@@ -296,7 +294,9 @@ if(window.location.href.indexOf("code")!=-1){
   //       }
 
 		// }
-
+		function giveUpperBounds(bounds){
+			return parseInt(bounds[0]) + parseInt(bounds[2]);
+		}
 
 		function analyze(canvas, handleData) {
 
@@ -334,16 +334,27 @@ if(window.location.href.indexOf("code")!=-1){
             if (data.regions != null) {
             	console.log(data.regions.length);
             	var bounds = data.regions[0].boundingBox.split(',');
-            	var lowerbound = bounds[0];
-            	var upperbound = bounds[0]+bounds[2];
+            	var upperbound = giveUpperBounds(bounds);
             	console.log(upperbound);
-            	// for(var i = 0; i < data.regions.length; i++){
-            	// 	for(var j = 0; j < data.regions[i].lines.length; i++){
-            	// 		for(var k = 0; k <  data.regions[i].lines[j].words.length) {
-            	// 			var bounds = data.regions[0].boundingBox.split(',');
-            	// 		}
-            	// 	}
-            	// }
+            	for(var i = 0; i < data.regions.length; i++){
+            		for(var j = 0; j < data.regions[i].lines.length; i++){
+            			for(var k = 0; k <  data.regions[i].lines[j].words.length) {
+            				var boundstemp = data.regions[0].boundingBox.split(',');
+            				var upperboundstemp = giveUpperBounds(boundstemp);
+            				if(upperboundstemp < upperbound)
+            					ter.push(data.regions[i].lines[j].words[k].text);
+            				else
+            					de.push(data.regions[i].lines[j].words[k].text);
+            			}
+            		}
+            	}
+
+            	if (ter.length > de.length)
+            		ter.splice(0, de.length);
+            	else if (de.length > ter.length)
+            		de.split(0, ter.length);
+
+
                 console.log(ter);
                 console.log(de);
               	handleData(ter,de); 

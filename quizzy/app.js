@@ -1,6 +1,5 @@
 $(function(){
 
-
 var textFill = "";
 $("#recognizeButton").click(function(){
 	var canvas = document.getElementById('canvas2');
@@ -13,16 +12,16 @@ $("#userInfoButton").click(function(){
 
 $("#startcropping").click(function(){
 	alert('pressed');
-		var canvas = document.getElementById('canvas2');
-		$('#canvas2').Jcrop({
-                    onSelect: updatePreview,
-                    allowSelect: true,
-                    allowMove: true,
-                    allowResize: true,
-                    aspectRatio: 0,
-                    boxWidth: canvas.width, 
-                    boxHeight: canvas.height
-                });
+	var canvas = document.getElementById('canvas2');
+	$('#canvas2').Jcrop({
+        onSelect: updatePreview,
+        allowSelect: true,
+        allowMove: true,
+        allowResize: true,
+        aspectRatio: 0,
+        boxWidth: canvas.width, 
+        boxHeight: canvas.height
+    });
 });
 
 $("#cropimage").click(function(){
@@ -261,39 +260,6 @@ if(window.location.href.indexOf("code")!=-1){
 		    return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
 		}
 
-		// function handleOxford(data) {
-		// 	var lineText = "";
-  //         var ter = [];
-  //         var de = [];
-  //           if (data.regions != null) {
-  //           	console.log(data.regions.length);
-  //               for (var i = 0; i < data.regions.length; i++) {
-                	
-  //                   label1: for (var j = 0; j < data.regions[i].lines.length; j++) {
-  //                        for (var k = 0; k < data.regions[i].lines[j].words.length; k++) {
-  //                       	if((data.regions[i].lines[j].words[k].text.substring(0,7)== "EPISODE")){
-		// 						continue label1;
-  //                       	}
-  //                           lineText += data.regions[i].lines[j].words[k].text + " ";   
-  //                       }
-  //                       if(i==1){
-  //                       ter.push(lineText);
-  //                       }
-  //                       else if(i==2){
-  //                       	de.push(lineText);
-  //                       	console.log(lineText);
-  //                       }
-  //                       lineText = "";
-  //                   }
-  //               }
-  //               console.log(ter);
-  //               console.log(de);
-  //           }
-  //           else {
-  //               console.log('empty');
-  //       }
-
-		// }
 		function giveUpperBounds(bounds){
 			return parseInt(bounds[0]) + parseInt(bounds[2]);
 		}
@@ -351,7 +317,7 @@ if(window.location.href.indexOf("code")!=-1){
             // 	}
 
             // 	if (ter.length > de.length)
-            // 		ter.splice(0, de.length);
+            // 		ter.splice(0, de.length); 
             // 	else if (de.length > ter.length)
             // 		de.splice(0, ter.length);
 
@@ -370,14 +336,16 @@ if(window.location.href.indexOf("code")!=-1){
             	de.push(text);
             }
 
+            console.log('terms' + ter);
+            console.log('definitions ' + de);
             if (ter.length > de.length)
             		ter.splice(0, de.length);
             	else if (de.length > ter.length)
             		de.splice(0, ter.length);
 
 
-                console.log(ter);
-                console.log(de);
+                // console.log(ter);
+                // console.log(de);
               	handleData(ter,de); 
         })
         .fail(function(err) {

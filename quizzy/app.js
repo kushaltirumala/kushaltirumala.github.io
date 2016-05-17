@@ -3,7 +3,9 @@ $(function(){
 var textFill = "";
 $("#recognizeButton").click(function(){
 	var canvas = document.getElementById('canvas2');
-	analyze(canvas);
+	analyze(canvas, function(){
+		console.log("finished ocr");
+	});
 });
 
 $("#userInfoButton").click(function(){
@@ -279,7 +281,7 @@ if(window.location.href.indexOf("code")!=-1){
 
      var blob = dataURItoBlob(imageData);
      var params = {
-            "language": "unk",
+     		"language": "unk",
             "detectOrientation ": "true",
         }; 
         $.ajax({

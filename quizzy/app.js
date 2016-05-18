@@ -37,6 +37,9 @@ $("#newset").click(function(){
 function cropImageToSend() {
 	var canvas=document.getElementById("viewport");
 	analyze(canvas, function(terms, definitions){
+		console.log('hi');
+		console.log("terms pt 2 " + terms);
+		console.log("defs pt2 " + defs);
 		postSet(terms, definitions);
 	});
 }
@@ -56,6 +59,7 @@ function updatePreview(c) {
 document.getElementById('files').addEventListener('change', handleFileSelect, false);
 
 var accessToken;
+
 
 if(window.location.href.indexOf("code")!=-1){
 	createPostReqForSet();
@@ -138,6 +142,8 @@ if(window.location.href.indexOf("code")!=-1){
 	  			'terms':terms,
 	  			'definitions':definitions
 	  		}
+	  		console.log('terms: ' + terms);
+	  		console.log('definitions ' + definitions);
 	    	$.ajax({
 	    		type:"POST",
 	    		url:"http://localhost:3000/newSet?title="+title,
@@ -159,8 +165,10 @@ if(window.location.href.indexOf("code")!=-1){
 
 	function createSet() {
 		var canvas = document.getElementById('canvas2');
-		analyze(canvas, function(terms, definitions) { 
-			postSet(terms, definitions);
+		analyze(canvas, function(terms, defs) { 
+			//console.log("terms" + terms);
+			//console.log("defs " + defs);
+			postSet(terms, defs);
     	})
 	}
 
@@ -338,17 +346,20 @@ if(window.location.href.indexOf("code")!=-1){
             	de.push(text);
             }
 
-            console.log('terms' + ter);
-            console.log('definitions ' + de);
-            if (ter.length > de.length)
-            		ter.splice(0, de.length);
-            	else if (de.length > ter.length)
-            		de.splice(0, ter.length);
+
+            if (ter.length > de.length) {
+            	
+            	ter.slice(0, de.length);
+            }
+            else if (de.length > ter.length) {
+            	de.slice(0, ter.length);
+            }
 
 
-                // console.log(ter);
-                // console.log(de);
-              	handleData(ter,de); 
+
+
+
+              	handleData(ter, de); 
         })
         .fail(function(err) {
             console.log(JSON.stringify(err));

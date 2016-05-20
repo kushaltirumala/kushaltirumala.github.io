@@ -334,23 +334,17 @@ if(window.location.href.indexOf("code")!=-1){
             for(var i = 0; i < data.regions[0].lines.length; i++){
             	var text =""
             	for(var j=0; j < data.regions[0].lines[i].words.length; j++){
-
             		text= text + (data.regions[0].lines[i].words[j].text) + " ";
             	}
-            	//ter.push(text);
-            	console.log(text);
-            	var termtemp = text.substring(0, text.indexOf('('));
-            	var detemp = text.substring(text.indexOf('('));
-            	ter.push(termtemp);
-            	de.push(detemp);
+            	ter.push(text);
             }
-            // for(var i = 0; i < data.regions[1].lines.length; i++){
-            // 	var text = "";
-            // 	for(var j=0; j < data.regions[1].lines[i].words.length; j++){
-            // 		text= text + (data.regions[1].lines[i].words[j].text) + " ";
-            // 	}
-            // 	de.push(text);
-            // }
+            for(var i = 0; i < data.regions[1].lines.length; i++){
+            	var text = "";
+            	for(var j=0; j < data.regions[1].lines[i].words.length; j++){
+            		text= text + (data.regions[1].lines[i].words[j].text) + " ";
+            	}
+            	de.push(text);
+            }
 
 
             if (ter.length > de.length) {

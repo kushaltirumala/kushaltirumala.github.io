@@ -179,7 +179,7 @@ if(window.location.href.indexOf("code")!=-1){
 			}
 			//console.log("terms" + terms);
 			//console.log("defs " + defs);
-			postSet(terms, defs);
+			postSet(t, d);
     	})
 	}
 

@@ -44,6 +44,11 @@ function cropImageToSend() {
 	});
 }
 
+function upperCase(word){
+	var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	return upperCase.indexOf(word.charAt(0))
+}
+
 function updatePreview(c) {
     if (parseInt(c.w) > 0) {
         var imageObj = $("#canvas2")[0];
@@ -331,29 +336,70 @@ if(window.location.href.indexOf("code")!=-1){
             // 	else if (de.length > ter.length)
             // 		de.splice(0, ter.length);
 
+            // for(var i = 0; i < data.regions[0].lines.length; i++){
+            // 	var text =""
+            // 	for(var j=0; j < data.regions[0].lines[i].words.length; j++){
+            // 		text= text + (data.regions[0].lines[i].words[j].text) + " ";
+            // 	}
+            // 	ter.push(text);
+            // }
+            // for(var i = 0; i < data.regions[1].lines.length; i++){
+            // 	var text = "";
+            // 	for(var j=0; j < data.regions[1].lines[i].words.length; j++){
+            // 		text= text + (data.regions[1].lines[i].words[j].text) + " ";
+            // 	}
+            // 	de.push(text);
+            // }
+
+
+            // if (ter.length > de.length) {
+            	
+            // 	ter.slice(0, de.length);
+            // }
+            // else if (de.length > ter.length) {
+            // 	de.slice(0, ter.length);
+            // }
+
             for(var i = 0; i < data.regions[0].lines.length; i++){
-            	var text =""
+            	var text ="";
+            	var boundingBox;
             	for(var j=0; j < data.regions[0].lines[i].words.length; j++){
             		text= text + (data.regions[0].lines[i].words[j].text) + " ";
+            		if(j == data.regions[0].lines[i].words.length-1)
+            			boundingBox = data.regions[0].lines[i].words.boundingBox;
             	}
-            	ter.push(text);
+            	var toAdd = {
+            		'text':text,
+            		'boundingBox':boundingBox
+            	}
+            	ter.push(toAdd);
             }
             for(var i = 0; i < data.regions[1].lines.length; i++){
             	var text = "";
+            	var boundingBox;
             	for(var j=0; j < data.regions[1].lines[i].words.length; j++){
             		text= text + (data.regions[1].lines[i].words[j].text) + " ";
+            		if(j == data.regions[1].lines[i].words.length-1)
+            			boundingBox = data.regions[1].lines[i].words.boundingBox;
             	}
-            	de.push(text);
+            	var toAdd = {
+            		'text':text,
+            		'boundingBox':boundingBox
+            	}
+            	de.push(toAdd);
             }
 
 
-            if (ter.length > de.length) {
+            //console.log(ter);
+            //console.log(de);
+
+            // if (ter.length > de.length) {
             	
-            	ter.slice(0, de.length);
-            }
-            else if (de.length > ter.length) {
-            	de.slice(0, ter.length);
-            }
+            // 	ter.slice(0, de.length);
+            // }
+            // else if (de.length > ter.length) {
+            // 	de.slice(0, ter.length);
+            // }
 
 
 

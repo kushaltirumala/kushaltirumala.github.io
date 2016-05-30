@@ -171,11 +171,18 @@ if(window.location.href.indexOf("code")!=-1){
 	function createSet() {
 		var canvas = document.getElementById('canvas2');
 		analyze(canvas, function(terms, defs) { 
+			var t = [];
+			var d = [];
+			for(var i = 0; i < terms.length; i++){
+				t[i] = terms[i].text;
+				d[i] = defs[i].text;
+			}
 			//console.log("terms" + terms);
 			//console.log("defs " + defs);
 			postSet(terms, defs);
     	})
 	}
+
 
 
 	function form2Json(str)

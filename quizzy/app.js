@@ -180,6 +180,8 @@ if(window.location.href.indexOf("code")!=-1){
 			//console.log("terms" + terms);
 			//console.log("defs " + defs);
 			postSet(t, d);
+
+
     	})
 	}
 
@@ -410,7 +412,7 @@ if(window.location.href.indexOf("code")!=-1){
             			//boundingBox = ter[i].boundingBox[0] + ter[i].boundingBox[2];
             			i++;	
             		}
-            		bb = parseInt(ter[i-1].boundingBox[1]) + parseInt(ter[i-1].boundingBox[3]);
+            		bb = [parseInt(ter[i-1].boundingBox[1]), parseInt(ter[i-1].boundingBox[3])];
             		
             		var objToAdd = {
             			'text': newTerm,
@@ -428,8 +430,8 @@ if(window.location.href.indexOf("code")!=-1){
             var starting = 0;
             var index = 0;
             var j = parseInt(de[0].boundingBox[1]) + parseInt(de[0].boundingBox[3]);
-            for(var i = 0; i < newterms.length; i++){
-            	var upperLimitBounds = newterms[i].bb;
+            for(var i = 1; i < newterms.length; i++){
+            	var upperLimitBounds = newterms[i].bb[0];
             	//console.log('new bounds' + upperLimitBounds);
 
             	var newdef = "";
@@ -449,18 +451,18 @@ if(window.location.href.indexOf("code")!=-1){
             }
             
 
-            //console.log('NEW DEFS ' + JSON.stringify(newdefs))
-            //console.log('LENGTH ' + newdefs.length);
+            console.log('NEW DEFS ' + JSON.stringify(newdefs))
+            console.log('LENGTH ' + newdefs.length);
             //console.log(ter);
             //console.log(de);
 
-            // if (ter.length > de.length) {
+            if (ter.length > de.length) {
             	
-            // 	ter.slice(0, de.length);
-            // }
-            // else if (de.length > ter.length) {
-            // 	de.slice(0, ter.length);
-            // }
+            	ter.slice(0, de.length);
+            }
+            else if (de.length > ter.length) {
+            	de.slice(0, ter.length);
+            }
 
 
 

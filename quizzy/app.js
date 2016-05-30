@@ -471,12 +471,13 @@ if(window.location.href.indexOf("code")!=-1){
 
             if (newterms.length > newdefs.length) {
             	console.log('hihihihihi');
-            	newterms.slice(0, newdefs.length);
+            	newterms = newterms.slice(0, newdefs.length);
             } else if (newdefs.length > newterms.length) {
-            	newdefs.slice(0, newterms.length);
+            	newdefs = newdefs.slice(0, newterms.length);
             }
 
-
+            console.log('length1 ' + newterms.length);
+            console.log('length2 ' + newdefs.length);
 
 
 

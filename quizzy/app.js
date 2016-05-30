@@ -147,8 +147,8 @@ if(window.location.href.indexOf("code")!=-1){
 	  			'terms':terms,
 	  			'definitions':definitions
 	  		}
-	  		console.log('terms: ' + terms);
-	  		console.log('definitions ' + definitions);
+	  		console.log('terms: ' + JSON.stringify(terms));
+	  		console.log('definitions ' + JSON.stringify(definitions));
 	    	$.ajax({
 	    		type:"POST",
 	    		url:"http://localhost:3000/newSet?title="+title,

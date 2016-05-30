@@ -173,6 +173,7 @@ if(window.location.href.indexOf("code")!=-1){
 		analyze(canvas, function(terms, defs) { 
 			var t = [];
 			var d = [];
+			console.log("TERMSTERMSTERMS" + JSON.stringify(terms));
 			for(var i = 0; i < terms.length; i++){
 				t[i] = terms[i].text;
 				d[i] = defs[i].text;
@@ -423,7 +424,6 @@ if(window.location.href.indexOf("code")!=-1){
             	}
             }
             console.log('NEW TERMS' + JSON.stringify(newterms));
-            console.log('LENGHT ' + newterms.length);
 
             var newdefs = [];
 
@@ -449,20 +449,33 @@ if(window.location.href.indexOf("code")!=-1){
             	}
             	newdefs.push(objToAdd);
             }
+
+            //console.log("INDEX" + index);
+
+
+            // for(var i = index; i<de.length; i++){
+
+            // 	if(newterms[i] != null){
+            // 		var obj = {
+            // 			'text':de[i].text
+            // 		}
+            // 		newdefs.push(obj)
+            // 	}
+            // }
             
 
             console.log('NEW DEFS ' + JSON.stringify(newdefs))
-            console.log('LENGTH ' + newdefs.length);
             //console.log(ter);
             //console.log(de);
 
-            if (ter.length > de.length) {
-            	
-            	ter.slice(0, de.length);
+
+            if (newterms.length > newdefs.length) {
+            	console.log('hihihihihi');
+            	newterms.slice(0, newdefs.length);
+            } else if (newdefs.length > newterms.length) {
+            	newdefs.slice(0, newterms.length);
             }
-            else if (de.length > ter.length) {
-            	de.slice(0, ter.length);
-            }
+
 
 
 

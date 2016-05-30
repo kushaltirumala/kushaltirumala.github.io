@@ -370,7 +370,7 @@ if(window.location.href.indexOf("code")!=-1){
             	}
             	var toAdd = {
             		'text':text,
-            		'boundingBox':boundingBox.split('')
+            		'boundingBox':boundingBox.split(',')
             	}
             	ter.push(toAdd);
             }
@@ -389,28 +389,61 @@ if(window.location.href.indexOf("code")!=-1){
             	de.push(toAdd);
             }
 
+
             var newterms = [];
-            for(var i =0; i < ter.length; i++){
-            	var newTerm = "";
-            	var bounds = ter[i].boundingBox[0] + ter[i].boundingBox[2];
-            	var text = ter[i].text;
-            	if(upperCase(text) != -1){
+            for(var i =0; i < ter.length; ){
+            	         	
+            	if(upperCase(ter[i].text) != -1){
+            		var newTerm =ter[i].text;  
+            		//console.log(ter[i].text)
             		i++
-            		while(upperCase(ter[i].text) == -1){
+            		while(i < ter.length && upperCase(ter[i].text) == -1){
+            			console.log(ter[i].text)
             			newTerm+=ter[i].text
-            			boundingBox = ter[i].boundinxBox[0] + ter[i].boundingBox[2];
+            			//boundingBox = ter[i].boundingBox[0] + ter[i].boundingBox[2];
             			i++;	
             		}
-            		i--;
+            		bb = parseInt(ter[i-1].boundingBox[1]) + parseInt(ter[i-1].boundingBox[3]);
+            		
             		var objToAdd = {
             			'text': newTerm,
-            			'bb':boundingBox
+            			'bb':bb
             		}
+
             		newterms.push(objToAdd)
             	}
             }
-            console.log('NEW TERMS' + newterms);
+            console.log('NEW TERMS' + JSON.stringify(newterms));
+            console.log('LENGHT ' + newterms.length);
+
+            var newdefs = [];
+
+            var starting = 0;
+            var index = 0;
+            var j = parseInt(de[0].boundingBox[1]) + parseInt(de[0].boundingBox[3]);
+            for(var i = 0; i < newterms.length; i++){
+            	var upperLimitBounds = newterms[i].bb;
+            	//console.log('new bounds' + upperLimitBounds);
+
+            	var newdef = "";
+            	
+            	console.log('starting at: ' + j)
+            	while(j < upperLimitBounds) {
+            		newdef +=de[index].text;
+            		index++;
+            		j = parseInt(de[index].boundingBox[1]) + parseInt(de[index].boundingBox[3]);
+
+            	}
+            	//console.log(newdef);
+            	var objToAdd = {
+            		'text':newdef
+            	}
+            	newdefs.push(objToAdd);
+            }
             
+
+            //console.log('NEW DEFS ' + JSON.stringify(newdefs))
+            //console.log('LENGTH ' + newdefs.length);
             //console.log(ter);
             //console.log(de);
 
@@ -426,7 +459,7 @@ if(window.location.href.indexOf("code")!=-1){
 
 
 
-              	handleData(ter, de); 
+              	handleData(newterms, newdefs); 
         })
         .fail(function(err) {
             console.log(JSON.stringify(err));

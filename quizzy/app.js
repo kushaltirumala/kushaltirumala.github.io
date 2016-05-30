@@ -366,11 +366,11 @@ if(window.location.href.indexOf("code")!=-1){
             	for(var j=0; j < data.regions[0].lines[i].words.length; j++){
             		text= text + (data.regions[0].lines[i].words[j].text) + " ";
             		if(j == data.regions[0].lines[i].words.length-1)
-            			boundingBox = data.regions[0].lines[i].words.boundingBox;
+            			boundingBox = data.regions[0].lines[i].words[j].boundingBox;
             	}
             	var toAdd = {
             		'text':text,
-            		'boundingBox':boundingBox
+            		'boundingBox':boundingBox.split('')
             	}
             	ter.push(toAdd);
             }
@@ -380,16 +380,37 @@ if(window.location.href.indexOf("code")!=-1){
             	for(var j=0; j < data.regions[1].lines[i].words.length; j++){
             		text= text + (data.regions[1].lines[i].words[j].text) + " ";
             		if(j == data.regions[1].lines[i].words.length-1)
-            			boundingBox = data.regions[1].lines[i].words.boundingBox;
+            			boundingBox = data.regions[1].lines[i].words[j].boundingBox;
             	}
             	var toAdd = {
             		'text':text,
-            		'boundingBox':boundingBox
+            		'boundingBox':boundingBox.split(',')
             	}
             	de.push(toAdd);
             }
 
-
+            var newterms = [];
+            for(var i =0; i < ter.length; i++){
+            	var newTerm = "";
+            	var bounds = ter[i].boundingBox[0] + ter[i].boundingBox[2];
+            	var text = ter[i].text;
+            	if(upperCase(text) != -1){
+            		i++
+            		while(upperCase(ter[i].text) == -1){
+            			newTerm+=ter[i].text
+            			boundingBox = ter[i].boundinxBox[0] + ter[i].boundingBox[2];
+            			i++;	
+            		}
+            		i--;
+            		var objToAdd = {
+            			'text': newTerm,
+            			'bb':boundingBox
+            		}
+            		newterms.push(objToAdd)
+            	}
+            }
+            console.log('NEW TERMS' + newterms);
+            
             //console.log(ter);
             //console.log(de);
 

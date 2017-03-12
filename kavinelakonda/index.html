@@ -1,0 +1,49 @@
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/three.js/r66/three.min.js"></script>
+  <script src="//js.leapmotion.com/leap-0.6.4.js"></script>
+  <script src="javascripts/lib/leap-plugins-0.1.4-data-defaults.js"></script>
+  <script src="//js.leapmotion.com/leap.rigged-hand-0.1.4.js"></script>
+  <script src="javascripts/lib/leap.hand-splay.js"></script>
+  <script src="javascripts/lib/leap.playback-0.1.0.js"></script>
+  <script src="javascripts/leap.relative-motion.js"></script>
+
+  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/spectrum/1.3.0/js/spectrum.min.js"></script>
+
+</head>
+<style>
+  body {
+    margin: 0;
+  }
+  canvas {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+  }
+  #cursorCanvas{
+    z-index: 1;
+  }
+
+</style>
+<body>
+
+
+<div id="out"></div>
+<div id="out2"></div>
+
+
+
+<input id="color"/>
+
+<canvas id="canvas"></canvas>
+<canvas id="cursorCanvas"></canvas>
+
+<script src="javascripts/main.js"></script>
+</body>
+</html>
